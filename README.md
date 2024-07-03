@@ -1,4 +1,4 @@
-# ETH-AVAX_Module_3_Mint_-_Burn
+# ETH-AVAX_Module_3_Mint-Burn
 
 ## Description
 
