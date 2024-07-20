@@ -49,14 +49,13 @@ main()
 * `constructor()`:
 The constructor sets the owner of the contract to the address that deploys the contract. It also initializes the total supply of tokens to 0 and assigns this total supply to the deployer's balance.
 
-* `mint(address account, uint256 amount) public`:
+* `mintTokens(address to, uint256 amount) public`:
 Mints new tokens.The address to which the minted tokens will be assigned. Only the owner can mint tokens to their own account.`amount`: The number of tokens to mint.
 
+* `transferTokens(address _receiver, uint256 amount) public`: Transfers tokens from the caller's balance to another address. `_receiver`: The address to which the tokens will be transferred. `amount`: The number of tokens to transfer. The caller must have at least the specified amount of tokens in their balance.
 
-* `burn(uint256 amount) public`:
+* `burnTOkens(uint256 amount) public`:
 Burns tokens from the caller's balance.`amount`: The number of tokens to burn. The caller must have at least the specified amount of tokens in their balance.
-
-* `transfer(address recipient, uint256 amount) public`: Transfers tokens from the caller's balance to another address. `recipient`: The address to which the tokens will be transferred. `amount`: The number of tokens to transfer. The caller must have at least the specified amount of tokens in their balance.
 
 ### Example
 Here's an example of how to use the contract in a Hardhat environment, for remix the contract can be deployed from the `Deploy and Run Transactions` section:
