@@ -1,35 +1,25 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-contract Token {
-    address public owner;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-    string public name = "Continential";
-    string public symbol = "CON";
-    uint256 public totalSupply = 0;
+contract ERC20_Tokens is ERC20, ERC20Burnable, Ownable {
 
-    mapping(address => uint256) public balances;
+    constructor() ERC20("CONTINENTIAL", "CON") Ownable(msg.sender) {}
 
-    constructor() {
-        owner = msg.sender;
-        balances[msg.sender]= totalSupply;
+    function mintTokens(address to, uint256 amount) public onlyOwner {
+       _mint(to, amount); 
     }
 
-    function mint(address account, uint256 amount) public {
-        require(account == owner, "Only the owner can call this function");
-        totalSupply += amount;
-        balances[account] += amount;
+    function transferTokens(address _receiver, uint256 amount) external {
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
+        transferFrom(msg.sender, _receiver, amount);
     }
 
-    function burn(uint256 amount) public {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
-        totalSupply -= amount;
-        balances[msg.sender] -= amount;
-    }
-
-    function transfer(address recipient, uint256 amount) public {
-        require(balances[msg.sender] >= amount, "Insufficient balance");
-        balances[msg.sender] -= amount;
-        balances[recipient] += amount;
+    function burnTokens(uint256 amount) external {
+        require(balanceOf(msg.sender) >= amount, "Insufficient balance");
+        _burn(msg.sender,amount);
     }
 }
